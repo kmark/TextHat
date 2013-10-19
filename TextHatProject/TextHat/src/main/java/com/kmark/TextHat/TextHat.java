@@ -6,19 +6,9 @@ import android.util.Log;
 
 public class TextHat extends Application {
 
-    BluetoothAdapter adapter;
-    private static TextHat instance;
-
-
     @Override
     public void onCreate() {
         super.onCreate();
-        instance = this;
-        adapter = BluetoothAdapter.getDefaultAdapter();
-    }
-
-    static TextHat getInstance() {
-        return instance;
     }
 
     // Thanks -> https://github.com/shutterstock/List-of-Dirty-Naughty-Obscene-and-Otherwise-Bad-Words

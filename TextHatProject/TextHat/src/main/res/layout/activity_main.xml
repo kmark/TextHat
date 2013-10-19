@@ -21,12 +21,12 @@
             android:layout_alignParentLeft="false"
             android:layout_gravity="center_horizontal"
             android:layout_marginTop="50dp"
-            android:text="Service" />
+            android:text="@string/service" />
 
         <Switch
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Filter"
+            android:text="@string/filter"
             android:id="@+id/filterSwitch"
             android:layout_gravity="center" />
     </LinearLayout>

@@ -3,8 +3,10 @@ package com.kmark.TextHat;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
+import android.content.ComponentName;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.app.Activity;
 import android.util.Log;
@@ -20,13 +22,11 @@ import java.util.UUID;
 
 public class MainActivity extends Activity {
 
-    TextHat th;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        th = TextHat.getInstance();
+        BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
 
         final SharedPreferences sharedPreferences = getSharedPreferences("com.kmark.TextHat_preferences", MODE_PRIVATE);
         sharedPreferences.edit().putBoolean("enabled", sharedPreferences.getBoolean("enabled", false)).commit();
@@ -37,6 +37,9 @@ public class MainActivity extends Activity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 sharedPreferences.edit().putBoolean("enabled", isChecked).commit();
+                getPackageManager().setComponentEnabledSetting(new ComponentName(MainActivity.this, SMSBroadcastReceiver.class),
+                        isChecked ? PackageManager.COMPONENT_ENABLED_STATE_ENABLED : PackageManager.COMPONENT_ENABLED_STATE_DISABLED,
+                        PackageManager.DONT_KILL_APP);
             }
         });
 
@@ -49,43 +52,9 @@ public class MainActivity extends Activity {
             }
         });
 
-        if(!th.adapter.isEnabled()) {
+        if(!adapter.isEnabled()) {
             Intent enableBluetooth = new Intent(BluetoothAdapter.ACTION_REQUEST_ENABLE);
             startActivityForResult(enableBluetooth, 0);
-            return;
-        }
-        //onBluetoothEnabled();
-    }
-
-    void onBluetoothEnabled() {
-        BluetoothDevice bd = null;
-        Set<BluetoothDevice> pairedDevices = th.adapter.getBondedDevices();
-        for(BluetoothDevice pd : pairedDevices) {
-            if(pd.getName().equals("arduino")) {
-                bd = pd;
-            }
-        }
-        if(bd == null) {
-            Log.wtf("MainActivity", "Arduino not found.");
-            return;
-        }
-        UUID uuid = UUID.fromString("00001101-0000-1000-8000-00805f9b34fb");
-        try {
-            BluetoothSocket socket = bd.createRfcommSocketToServiceRecord(uuid);
-            socket.connect();
-            OutputStream os = socket.getOutputStream();
-            os.write("Kevin Mark|WASSUP?|".getBytes("US-ASCII"));
-        } catch (IOException ex) {
-            Log.wtf("MainActivity", ex);
         }
     }
-
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.main, menu);
-        return true;
-    }
-    
 }

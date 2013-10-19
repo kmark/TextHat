@@ -1,5 +1,6 @@
 package com.kmark.TextHat;
 
+import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothSocket;
 import android.content.BroadcastReceiver;
@@ -91,7 +92,8 @@ public class SMSBroadcastReceiver extends BroadcastReceiver {
         }
 
         BluetoothDevice bd = null;
-        Set<BluetoothDevice> pairedDevices = ((TextHat)ctx.getApplicationContext()).adapter.getBondedDevices();
+        BluetoothAdapter adapter = BluetoothAdapter.getDefaultAdapter();
+        Set<BluetoothDevice> pairedDevices = adapter.getBondedDevices();
         for(BluetoothDevice pd : pairedDevices) {
             if(pd.getName().equals("arduino")) {
                 bd = pd;
