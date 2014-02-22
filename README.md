@@ -78,13 +78,14 @@ I set it up so messages work like this:
         555-123-4567\nWassup?\n
         This will be shown and scrolled on the first line of the LCD\nSecond line\n
 
-You can change the delimiter to whatever you want but I'd recommend something non-printing. The one I hard-coded in is the line feed (LF) character. That's 0xA in ASCII shorthand hex. Obviously you don't want to literally send "\n" you want to send what it *means*. Messages only flow in one direction and that's from the phone to the Arduino. The phone must be already paired with the Bluetooth module and the Bluetooth name must be "arduino" for the Android code to work out-of-the-box. The Android app whitelists a set of characters I manually tested and strips everything else out of the message sent over Bluetooth. If the Arduino code's buffer gets messed up somehow (LCD display acts up) a quick reboot (of the Arduino) will fix it until it happens again. The Arduino code will trust anything sent to it so all processing must be done on the Android end.
+You can change the delimiter to whatever you want but I'd recommend something non-printing. The one I hard-coded in is the line feed (LF) character. That's `0xA` in ASCII shorthand hex. Obviously you don't want to literally send `\n` you want to send what it *means*. Messages only flow in one direction and that's from the phone to the Arduino. The phone must be already paired with the Bluetooth module and the Bluetooth name must be `arduino` for the Android code to work out-of-the-box. The Android app whitelists a set of characters I manually tested and strips everything else out of the message sent over Bluetooth. If the Arduino code's buffer gets messed up somehow (LCD display acts up) a quick reboot (of the Arduino) will fix it until it happens again. The Arduino code will trust anything sent to it so all processing must be done on the Android end.
 
 ## Why is the default message #YOLO #SWAG ?
 It seemed like a good idea at the time. #SWAG scrolls across the bottom for additional lulz. Also high school.
 
 ## More Photos
 ![Just finished](https://github.com/kmark/TextHat/raw/master/DatHat.jpg)
+![Inside](https://github.com/kmark/TextHat/raw/master/Inside.jpg)
 ![During a demo with a friend](https://github.com/kmark/TextHat/raw/master/SuchKrowne.jpg)
 
 Also [here's a little clip](http://instagram.com/p/flN8yrImav/) I put together.
