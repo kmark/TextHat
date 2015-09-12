@@ -337,7 +337,6 @@ public class TextHat extends Application {
             "vagina",
             "venus mound",
             "vibrator",
-            "violet blue",
             "violet wand",
             "vorarephilia",
             "voyeur",
